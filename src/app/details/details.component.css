@@ -5,45 +5,36 @@
     border-radius: 30px;
     float: right;
 }
-
 .listing-heading {
     font-size: 48pt;
     font-weight: bold;
     margin-bottom: 15px;
 }
-
 .listing-location::before {
     content: url('/assets/location-pin.svg') / '';
 }
-
 .listing-location {
     font-size: 24pt;
     margin-bottom: 15px;
 }
-
 .listing-features > .section-heading {
     color: var(--secondary-color);
     font-size: 24pt;
     margin-bottom: 15px;
 }
-
 .listing-features {
     margin-bottom: 20px;
 }
-
 .listing-features li {
     font-size: 14pt;
 }
-
 li {
     list-style-type: none;
 }
-
 .listing-apply .section-heading {
     font-size: 18pt;
     margin-bottom: 15px;
 }
-
 label, input {
     display: block;
 }
@@ -58,10 +49,31 @@ input {
     margin-bottom: 15px;
     padding: 10px;
     width: 400px;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: solid .3px;
+    border: solid 1px var(--primary-color);
+    height: 15px;
+    border-radius: 5px;
+}
+.submit-btn {
+    padding: 10px;
+    border: solid 1px var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+}
+.submit-btn:hover {
+    background: #4e4b9b;
+}
+.submit-btn:active {
+    background: #3e3a7d;
+    transform: scale(0.98);
+}
+.listing-apply-form-container {
+    background-color: #f9f9fc;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 30px;
+    width: 450px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 @media (max-width: 1024px) {
     .listing-photo {

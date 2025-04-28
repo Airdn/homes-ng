@@ -7,11 +7,10 @@ import { RouterModule } from '@angular/router';
   selector: 'app-housing-location',
   standalone: true,
   template: `
-    <section class="listing">
+    <section class="listing" [routerLink]="['/details', housingLocation.id]">
       <img class="listing-photo" [src]="housingLocation.photo" alt="Exterior photo of {{housingLocation.name}}">
       <h2 class="listing-heading">{{housingLocation.name}}</h2>
-      <p class="listing-location">{{housingLocation.city}}</p>
-      <a [routerLink]="['/details', housingLocation.id]">Click to details</a>
+      <p class="listing-location">{{housingLocation.city}}, м. {{housingLocation.metro}}</p>
     </section>
   `,
   styleUrls: ['./housing-location.component.css'],

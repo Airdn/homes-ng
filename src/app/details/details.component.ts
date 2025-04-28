@@ -16,25 +16,28 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
         <p class="listing-location">{{housingLocation?.city}}</p>
       </section>
       <section class="listing-features">
-        <h2 class="section-heading">About this housing location</h2>
+        <h2 class="section-heading">Об этом жилом комплексе</h2>
         <ul>
-          <li>Units available: {{housingLocation?.availableUnits}}</li>
-          <li>Does this location have wifi: {{housingLocation?.wifi}}</li>
-          <li>Does this location have laundry: {{housingLocation?.laundry}}</li>
+          <li>Метро: {{housingLocation?.metro}}</li>
+          <li>Количество человек: {{housingLocation?.availableUnits}}</li>
+          <li>Вайфай: {{housingLocation?.wifi ? 'Есть' : 'Отсутствует'}}</li>
+          <li>Санузел: {{housingLocation?.laundry ? 'Есть' : 'Отсутствует'}}</li>
         </ul>
       </section>
       <section class="listing-apply">
-        <h2 class="section-heading">Apply now to live here</h2>
+        <h2 class="section-heading">Подайте заявку сейчас, чтобы жить здесь</h2>
         
-        <form [formGroup]="applyForm" (submit)="submitApplication()">
-          <label for="first-name">First Name</label>
-          <input id="first-name" type="text" formControlName="firstName">
-          <label for="last-name">Last Name</label>
-          <input id="last-name" type="text" formControlName="lastName">
-          <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email">
-          <button type="submit" class="primary">Apply now</button>
-        </form>
+        <div class="listing-apply-form-container">
+          <form [formGroup]="applyForm" (submit)="submitApplication()">
+            <label for="first-name">Имя</label>
+            <input id="first-name" type="text" formControlName="firstName">
+            <label for="last-name">Фамилия</label>
+            <input id="last-name" type="text" formControlName="lastName">
+            <label for="email">Почта</label>
+            <input id="email" type="email" formControlName="email">
+            <button type="submit" class="submit-btn">Подтвердить</button>
+          </form>
+        </div>
         
       </section>
     </article>
