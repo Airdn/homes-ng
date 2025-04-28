@@ -6,6 +6,7 @@ import { Housinglocation } from "./housinglocation";
 })
 export class HousingService {
   url = 'https://raw.githubusercontent.com/Airdn/homes-ng/refs/heads/main/db.json';
+  // url = 'http://localhost:3000/location';
 
   constructor() { }
 
