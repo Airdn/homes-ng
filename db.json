@@ -4,7 +4,7 @@
       "id": 0,
       "name": "Студия в центре города",
       "city": "Санкт-Петербург",
-      "photo": "/assets/spb1",
+      "photo": "/assets/spb1.jpg",
       "availableUnits": 4,
       "wifi": true,
       "laundry": true
