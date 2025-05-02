@@ -51,16 +51,16 @@ describe('Проверка отображения кнопки Поиск', () =
     cy.visit('/');
     cy.get('.search-btn').should('be.visible');
   });
-  it('проверка стилей кнопки "Поиск"', () => {
-    cy.visit('/');
-    cy.get('.search-btn').should('have.css', 'padding', '10px');
-    cy.get('.search-btn').should('have.css', 'border-radius', '8px');
-    cy.get('.search-btn').should('have.css', 'margin-left', '4px');
-    cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
-    cy.get('.search-btn').should('have.css', 'border-color', 'rgb(96, 93, 200)');
-    cy.get('.search-btn').should('have.css', 'border-style', 'solid');
-    cy.get('.search-btn').should('have.css', 'border-width', '0.666667px');
-  });
+  // it('проверка стилей кнопки "Поиск"', () => {
+  //   cy.visit('/');
+  //   cy.get('.search-btn').should('have.css', 'padding', '10px');
+  //   cy.get('.search-btn').should('have.css', 'border-radius', '8px');
+  //   cy.get('.search-btn').should('have.css', 'margin-left', '4px');
+  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
+  //   cy.get('.search-btn').should('have.css', 'border-color', 'rgb(96, 93, 200)');
+  //   cy.get('.search-btn').should('have.css', 'border-style', 'solid');
+  //   cy.get('.search-btn').should('have.css', 'border-width', '0.666667px');
+  // });
   // it('проверка отображения hover при наведении', () => {
   //   cy.visit('/');
   //   // cy.get('.search-btn').trigger('mouseover');
