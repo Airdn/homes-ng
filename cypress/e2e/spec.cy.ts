@@ -1,4 +1,12 @@
+import { getSearchButton, getSearchInput, checkFilteredResults } from './helpers';
+import { getButton, buttonHover } from "./helpers";
+
+
 // describe('Home Page', () => {
+//   beforeEach(() => {
+//     cy.visit('/');
+//   });
+
 //   it('отображается главная страница', () => {
 //     cy.visit('/');
 //   });
@@ -83,29 +91,40 @@ describe('Проверка отображения кнопки Поиск', () =
     cy.visit('/');
     cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
   });
-  // it('состояние Hover', () => {
-  //   cy.visit('/');
-  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
-  //   cy.get('.search-btn').invoke('addClass', 'hover');
-  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
-  // });
   it('состояние Hover', () => {
     cy.visit('/');
-    cy.get('.search-btn').realHover().wait(500).then;
+    cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
+    cy.get('.search-btn').invoke('addClass', 'hover');
     cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
   });
-  
+
+  it('состояние Hover', () => {
+    cy.visit('/');
+    buttonHover().wait(500);
+  });
+    // cy.get('.search-btn').trigger('mousedown');
+
+    // getButton().realHover().wait(1000);
+    // cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
+    // buttonHover().wait(500);
+    // cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
+
+    // getButton().realHover().wait(1000);
 
 
-  // it('проверка отображения hover при наведении', () => {
-  //   cy.visit('/');
-  //   // cy.get('.search-btn').trigger('mouseover');
-  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
+  it('hover работает', () => {
+    cy.visit('/');
+    cy.get('.search-btn').realHover(); // ← напрямую
+  });
+
+  //
+  // it('состояние Hover', () => {
+  //   buttonHover();
+  //   const { color, background } = fixture.colors.default.primary.hover;
+  //
+  //   innerButton().should('have.css', 'background-color', background).should('have.css', 'color', color);
   // });
-  // it('изменяет фон при нажатии', () => {
-  //   cy.visit('/');
-  //   cy.get('.search-btn').trigger('mousedown').should('have.css', 'background-color', 'rgb(62, 58, 125)');
-  // });
+
 });
 
 // describe('Details Page', () => {

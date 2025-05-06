@@ -1,3 +1,14 @@
+import 'cypress-real-events/support';
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            realHover(): Chainable<any>;
+            realMouseDown(): Chainable<any>;
+        }
+    }
+}
+
 // ***********************************************
 // This example namespace declaration will help
 // with Intellisense and code completion in your
