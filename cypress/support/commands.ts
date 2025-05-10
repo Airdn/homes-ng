@@ -3,11 +3,12 @@ import 'cypress-real-events/support';
 declare global {
     namespace Cypress {
         interface Chainable {
-            realHover(): Chainable<any>;
-            realMouseDown(): Chainable<any>;
+            realHover(): Chainable;
+            realMouseDown(): Chainable;
         }
     }
 }
+
 
 // ***********************************************
 // This example namespace declaration will help
