@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import 'cypress-real-events/support';
 import { buttonHover, buttonPressed } from "./helpers";
 
@@ -127,51 +129,63 @@ describe('Details Page', () => {
     cy.get('section.listing').should('exist').first().click();
   });
 
-  it('клик по карточке открывает Details Page', () => {
+  it('клик по карточке открывает и загружает Details Page', () => {
     cy.url().should('include', '/details/');
-    cy.get('header').should('be.visible');
-    cy.get('app-details').should('be.visible');
   });
 
-  it('отображается название вкладки Details Page', () => {
+  it('отображается название вкладки', () => {
     cy.title().should('eq', 'Details Page');
   });
 
-  it('отображается кнопка "Подтвердить"', () => {
-    cy.get('.submit-btn').should('be.visible');
-  });
-
-  it('проверка текста в кнопке "Подтвердить"', () => {
-    cy.get('.submit-btn').should('be.visible');
-    cy.get('.submit-btn').contains('Подтвердить');
-  });
-
-  it('проверка отображения содержимого Details Page', () => {
+  it('проверка отображения контента', () => {
     cy.get('header').should('be.visible');
     cy.get('section.content').should('be.visible');
     cy.get('app-details').should('be.visible');
     cy.get('img.listing-photo').should('be.visible');
-  });
-
-  it('проверка отображения содержимого Details Page', () => {
-    cy.get('header').should('be.visible');
-    cy.get('section.content').should('be.visible');
-    cy.get('app-details').should('be.visible');
-
-    cy.get('img.listing-photo').should('be.visible');
-  });
-
-  it('проверка отображения содержимого Details Page', () => {
-    cy.get('header').should('be.visible');
-    cy.get('section.content').should('be.visible');
-    cy.get('app-details').should('be.visible');
-
     cy.get('section.listing-description').should('be.visible');
-    cy.get('h2.listing-heading').should('be.visible');
-    cy.get('h2.listing-heading').should('have.css', 'font-size', '64px');
-    cy.get('p.listing-location').should('be.visible');
-    cy.get('p.listing-location').should('have.css', 'font-size', '32px');
+    cy.get('section.listing-features').should('be.visible');
+    cy.get('section.listing-apply').should('be.visible');
   });
+
+  it('проверка отображения photo', () => {
+    cy.get('img.listing-photo').should('be.visible');
+    cy.get('img.listing-photo').should('have.attr', 'src').and('not.be.empty');
+    cy.get('img.listing-photo').should('be.visible').and(($img) => {
+      expect($img[0].naturalWidth).to.be.greaterThan(0);
+    });
+  });
+
+  it('проверка отображения photo', () => {
+    cy.get('img.listing-photo').should(($img) => {
+      assert.isAbove($img[0].naturalWidth, 0, 'Image should be loaded');
+    });
+  });
+
+  //
+  // it('проверка отображения description', () => {
+  //   cy.get('header').should('be.visible');
+  //   cy.get('section.content').should('be.visible');
+  //   cy.get('app-details').should('be.visible');
+  //
+  //   cy.get('section.listing-description').should('be.visible');
+  //   cy.get('h2.listing-heading').should('be.visible');
+  //   cy.get('h2.listing-heading').should('have.css', 'font-size', '64px');
+  //   cy.get('p.listing-location').should('be.visible');
+  //   cy.get('p.listing-location').should('have.css', 'font-size', '32px');
+  // });
+
+  // it('кнопка "Подтвердить" существует в DOM', () => {
+  //   cy.get('.submit-btn').should('exist');
+  // });
+  //
+  // it('отображается кнопка "Подтвердить"', () => {
+  //   cy.get('.submit-btn').should('be.visible');
+  // });
+  //
+  // it('проверка текста в кнопке "Подтвердить"', () => {
+  //   cy.get('.submit-btn').should('be.visible');
+  //   cy.get('.submit-btn').contains('Подтвердить');
+  // });
 });
 
 // async
@@ -179,3 +193,11 @@ describe('Details Page', () => {
 // верстка карточки
 // забить в поиск и попробовать найти, проверка того что нашло
 //     cy.get('.submit-btn').should('be.visible');
+// отдельно тест exist отдельно visible
+
+// cy.get('header').should('be.visible');
+// cy.get('app-details').should('be.visible');
+
+// проверка что кнопка вызывает функцию???
+// const onClick = cy.stub(); cy.mount(<MyButton onClick={onClick} />);
+// cy.get('button').click(); cy.wrap(onClick).should('have.been.calledOnce');

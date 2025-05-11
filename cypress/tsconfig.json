@@ -1,8 +1,11 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["**/*.ts"],
+  "include": ["cypress/**/*.ts"],
   "compilerOptions": {
     "sourceMap": false,
-    "types": ["cypress", "mocha"]
+    "types": ["cypress", "mocha"],
+//    "target": "ES6",
+//    "moduleResolution": "node",
+//    "esModuleInterop": true
   }
 }
