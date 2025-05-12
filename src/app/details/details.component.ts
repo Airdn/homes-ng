@@ -15,27 +15,27 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
         <h2 class="listing-heading">{{housingLocation?.name}}</h2>
         <p class="listing-location">{{housingLocation?.city}}</p>
       </section>
-      <section class="listing-features">
-        <h2 class="section-heading">Об этом жилом комплексе</h2>
-        <ul>
-          <li>Метро: {{housingLocation?.metro}}</li>
-          <li>Количество человек: {{housingLocation?.availableUnits}}</li>
-          <li>Вайфай: {{housingLocation?.wifi ? 'Есть' : 'Отсутствует'}}</li>
-          <li>Санузел: {{housingLocation?.laundry ? 'Есть' : 'Отсутствует'}}</li>
+      <section class="listing-features" aria-labelledby="features-heading">
+        <h2 id="features-heading" class="section-heading">Об этом жилом комплексе</h2>
+        <ul role="list">
+          <li role="listitem">Метро: {{housingLocation?.metro}}</li>
+          <li role="listitem">Количество человек: {{housingLocation?.availableUnits}}</li>
+          <li role="listitem">Вайфай: {{housingLocation?.wifi ? 'Есть' : 'Отсутствует'}}</li>
+          <li role="listitem">Санузел: {{housingLocation?.laundry ? 'Есть' : 'Отсутствует'}}</li>
         </ul>
       </section>
       <section class="listing-apply">
         <h2 class="section-heading">Подайте заявку сейчас, чтобы жить здесь</h2>
         
         <div class="listing-apply-form-container">
-          <form [formGroup]="applyForm" (submit)="submitApplication()">
+          <form [formGroup]="applyForm" (submit)="submitApplication()" aria-label="Форма подачи заявки">
             <label for="first-name">Имя</label>
-            <input id="first-name" type="text" formControlName="firstName">
+            <input id="first-name" type="text" formControlName="firstName" aria-required="true">
             <label for="last-name">Фамилия</label>
             <input id="last-name" type="text" formControlName="lastName">
             <label for="email">Почта</label>
             <input id="email" type="email" formControlName="email">
-            <button type="submit" class="submit-btn">Подтвердить</button>
+            <button type="submit" class="submit-btn" aria-label="Подтвердить заявку">Подтвердить</button>
           </form>
         </div>
         
