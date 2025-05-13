@@ -30,6 +30,7 @@
 }
 li {
     list-style-type: none;
+    font-size: 18px;
 }
 .listing-apply .section-heading {
     font-size: 18pt;
