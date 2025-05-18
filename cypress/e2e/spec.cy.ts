@@ -262,51 +262,370 @@ describe('Details Page', () => {
   //   cy.get('.listing-features li').first().should('have.attr', 'role', 'listitem');
   // });
 
-  it('проверка отображения features', () => {
-    cy.get('section.listing-features').should('exist');
-    cy.get('section.listing-features h2').should('be.visible');
-    cy.get('section.listing-features ul').should('exist');
-    cy.get('section.listing-features li').should('have.length', 4).and('be.visible');
+  // it('проверка отображения features', () => {
+  //   cy.get('section.listing-features').should('exist');
+  //   cy.get('section.listing-features h2').should('be.visible');
+  //   cy.get('section.listing-features ul').should('exist');
+  //   cy.get('section.listing-features li').should('have.length', 4).and('be.visible');
+  // });
+  //
+  // it('проверка количества list item', () => {
+  //   // Проверка, что список не меньше 0 и не больше 4 элементов
+  //   cy.get('section.listing-features li').should('have.length.gt', 0).and('have.length.lt', 5);
+  //
+  //   // Другой вариант, через expect
+  //   cy.get('section.listing-features li').should(($li) => {
+  //     expect($li.length).to.be.gt(0).and.lt(5);
+  //   });
+  //
+  //   // Другой вариант, через gte и lte
+  //   cy.get('section.listing-features li').its('length').should('be.gte', 1).and('be.lte', 4);
+  // });
+  //
+  // it('проверка цвета и размера шрифта h2 и li', () => {
+  //   cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
+  //   cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
+  //   cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
+  //   cy.get('section.listing-features li').should('have.css', 'font-size', '18px');
+  //
+  //   // Проверка размера во всех li через each
+  //   cy.get('section.listing-features li').each(($li) => {
+  //     cy.wrap($li).should('have.css', 'font-size', '18px');
+  //   });
+  // });
+  //
+  // it('альтренативная проверка размера и шрифта h2 и li через then', () => {
+  //   cy.get('section.listing-features li').then(($items: JQuery<HTMLLIElement>) => {
+  //     // Проверяем количество элементов
+  //     expect($items.length).to.equal(4);
+  //
+  //     // Проверяем font-size для каждого элемента, нижнее подчеркивание - параметр не используется
+  //     $items.each((_, element: HTMLLIElement) => {
+  //       const computedStyle = window.getComputedStyle(element);
+  //       expect(computedStyle.fontSize).to.equal('18px');
+  //     });
+  //   });
+  // });
+  //
+  // it('проверка наличия margin-top у секции features', () => {
+  //   cy.get('section.listing-features').should('have.css', 'margin-bottom', '20px');
+  // });
+  //
+  // it('дополнительная проверка стилей h2 и li', () => {
+  //   cy.get('section.listing-features').should('exist');
+  //   cy.get('section.listing-features h2')
+  //       .should('be.visible')
+  //       .and('not.be.empty')
+  //       .and('have.prop', 'tagName', 'H2')
+  //       .then(($el) => {
+  //         expect($el).to.have.css('font-size', '32px');
+  //         expect($el).to.have.css('font-weight', '700');
+  //         expect($el).to.have.css('color', 'rgb(139, 137, 230)');
+  //         expect($el).to.have.css('margin-bottom', '15px');
+  //       });
+  //
+  //   cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
+  //   cy.get('section.listing-features h2').should('have.css', 'font-weight', '700');
+  //   cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
+  //   cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
+  //
+  //   cy.get('section.listing-features li')
+  //       .should('have.length.gte', 1)
+  //       .each(($li) => {
+  //         cy.wrap($li)
+  //             .should('be.visible')
+  //             .and('have.prop', 'tagName', 'LI')
+  //             .and('have.css', 'font-size', '18px')
+  //             .and('have.css', 'color', 'rgb(0, 0, 0)');
+  //       });
+  // });
+  //
+  // it('проверка цвета текста h2 и p (cy.get, each, each + cy.wrap)', () => {
+  //   cy.get('section.listing-features h2').should('be.visible').and('have.css', 'color', 'rgb(139, 137, 230)');
+  //
+  //   // each (перебирает все li, проверяет через expect)
+  //   cy.get('section.listing-features li')
+  //       .should('be.visible')
+  //       .each(($li) => {
+  //         expect($li).to.have.css('color', 'rgb(0, 0, 0)');
+  //       });
+  //
+  //   // each + wrap (перебирает все li, wrap дает проверять через should)
+  //   cy.get('section.listing-features li')
+  //       .should('be.visible')
+  //       .each(($li) => {
+  //         cy.wrap($li)
+  //             .should('have.css', 'color', 'rgb(0, 0, 0)');
+  //       });
+  // });
+  //
+  // it('проверка порядка элементов h2 > ul > li', () => {
+  //   // 1 вариант, next и find
+  //   cy.get('section.listing-features').within(() => {
+  //     cy.get('h2')
+  //         .should('exist')
+  //         .next('ul')
+  //         .should('exist')
+  //         .find('li:first') // first, так как избыточно проверять все li
+  //         .should('exist');
+  //   });
+  //
+  //   // 2 варинт, полная проверка порядка h2 → ul → li
+  //   cy.get('section.listing-features').within(() => {
+  //     cy.get('h2').should('exist');
+  //     cy.get('h2 + ul').should('exist');
+  //     cy.get('h2 + ul > li').should('have.length.gt', 0);
+  //   });
+  // });
+  //
+  // it('проверка текста внутри h2 и каждого li', () => {
+  //   cy.get('section.listing-features').should('exist');
+  //
+  //   cy.get('section.listing-features h2').should('have.text', 'Об этом жилом комплексе');
+  //
+  //   // через li:nth-child()
+  //   cy.get('section.listing-features li:nth-child(1)').should('contain.text', 'Метро:');
+  //   cy.get('section.listing-features li:nth-child(2)').should('contain.text', 'Количество человек:');
+  //   cy.get('section.listing-features li:nth-child(3)').should('contain.text', 'Вайфай:');
+  //   cy.get('section.listing-features li:nth-child(4)').should('contain.text', 'Санузел:');
+  //
+  //   // через eq
+  //   cy.get('section.listing-features li').eq(0).should('contain.text', 'Метро:');
+  //   cy.get('section.listing-features li').eq(1).should('contain.text', 'Количество человек:');
+  //   cy.get('section.listing-features li').eq(2).should('contain.text', 'Вайфай:');
+  //   cy.get('section.listing-features li').eq(3).should('contain.text', 'Санузел:');
+  //
+  //   // через then и индексацию
+  //   cy.get('section.listing-features li').then(($items) => {
+  //     expect($items[0]).to.contain.text('Метро:');
+  //     expect($items[1]).to.contain.text('Количество человек:');
+  //     expect($items[2]).to.contain.text('Вайфай:');
+  //     expect($items[3]).to.contain.text('Санузел:');
+  //   });
+  // });
+
+  it('проверка отображения apply', () => {
+    cy.get('section.listing-apply').should('exist');
+    cy.get('section.listing-apply h2').should('be.visible');
+    cy.get('section.listing-apply div').should('exist');
+    cy.get('section.listing-apply form').should('be.visible');
+    cy.get('section.listing-apply label').should('be.visible');
+    cy.get('section.listing-apply input').should('be.visible');
+    cy.get('section.listing-apply label').should('be.visible');
+    cy.get('section.listing-apply input').should('be.visible');
+    cy.get('section.listing-apply label').should('be.visible');
+    cy.get('section.listing-apply input').should('be.visible');
+    cy.get('section.listing-apply button').should('be.visible');
   });
 
-  it('проверка количества list item', () => {
-    // Проверка, что список не меньше 0 и не больше 4 элементов
-    cy.get('section.listing-features li').should('have.length.gt', 0).and('have.length.lt', 5);
+  it('Проверка отображения формы заявки', () => {
+    // Проверка основной структуры
+    cy.get('section.listing-apply').should('exist');
+    cy.get('section.listing-apply h2.section-heading')
+        .should('be.visible')
+        .and('have.text', 'Подайте заявку сейчас, чтобы жить здесь');
 
-    // Другой вариант, через expect
-    cy.get('section.listing-features li').should(($li) => {
-      expect($li.length).to.be.gt(0).and.lt(5);
+    // Проверка формы и контейнера
+    cy.get('section.listing-apply .listing-apply-form-container').should('exist');
+    cy.get('section.listing-apply form')
+        .should('be.visible')
+        .and('have.attr', 'aria-label', 'Форма подачи заявки');
+  });
+
+  it('Проверка полей формы', () => {
+    // Проверка лейблов и соответствующих инпутов
+    const fields = [
+      {
+        label: 'Имя',
+        id: 'first-name',
+        type: 'text',
+        required: true
+      },
+      {
+        label: 'Фамилия',
+        id: 'last-name',
+        type: 'text',
+        required: false
+      },
+      {
+        label: 'Почта',
+        id: 'email',
+        type: 'email',
+        required: false
+      }
+    ];
+
+    fields.forEach((field) => {
+      // Проверка лейбла
+      cy.get(`label[for="${field.id}"]`)
+          .should('be.visible')
+          .and('have.text', field.label);
+
+      // Проверка инпута
+      cy.get(`#${field.id}`)
+          .should('be.visible')
+          .and('have.attr', 'type', field.type);
+
+      // Проверка обязательности
+      if (field.required) {
+        cy.get(`#${field.id}`).should('have.attr', 'aria-required', 'true');
+      }
     });
 
-    // Другой вариант, через gte и lte
-    cy.get('section.listing-features li').its('length').should('be.gte', 1).and('be.lte', 4);
+    // Проверка кнопки
+    cy.get('button.submit-btn')
+        .should('be.visible')
+        .and('have.text', 'Подтвердить')
+        .and('have.attr', 'aria-label', 'Подтвердить заявку')
+        .and('have.attr', 'type', 'submit');
   });
 
-  it('проверка цвета и размера шрифта features', () => {
-    cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
-    cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
-    cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
-    cy.get('section.listing-features li').should('have.css', 'font-size', '18px');
+  it('Валидация формы', () => {
+    // Проверка обязательного поля
+    cy.get('#first-name').clear().blur();
+    cy.get('#first-name').should('have.class', 'ng-invalid');
+
+    // Проверка валидации email
+    cy.get('#email').type('invalid-email').blur();
+    cy.get('#email').should('have.class', 'ng-invalid');
+    cy.get('#email').clear().type('valid@email.com').blur();
+    cy.get('#email').should('have.class', 'ng-valid');
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  it('проверка отображения apply (форма)', () => {
-    cy.get('header').should('be.visible');
-    cy.get('section.content').should('be.visible');
-    cy.get('app-details').should('be.visible');
-  });
+  // it('проверка количества list item', () => {
+  //   // Проверка, что список не меньше 0 и не больше 4 элементов
+  //   cy.get('section.listing-features li').should('have.length.gt', 0).and('have.length.lt', 5);
+  //
+  //   // Другой вариант, через expect
+  //   cy.get('section.listing-features li').should(($li) => {
+  //     expect($li.length).to.be.gt(0).and.lt(5);
+  //   });
+  //
+  //   // Другой вариант, через gte и lte
+  //   cy.get('section.listing-features li').its('length').should('be.gte', 1).and('be.lte', 4);
+  // });
+  //
+  // it('проверка цвета и размера шрифта h2 и li', () => {
+  //   cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
+  //   cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
+  //   cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
+  //   cy.get('section.listing-features li').should('have.css', 'font-size', '18px');
+  //
+  //   // Проверка размера во всех li через each
+  //   cy.get('section.listing-features li').each(($li) => {
+  //     cy.wrap($li).should('have.css', 'font-size', '18px');
+  //   });
+  // });
+  //
+  // it('альтренативная проверка размера и шрифта h2 и li через then', () => {
+  //   cy.get('section.listing-features li').then(($items: JQuery<HTMLLIElement>) => {
+  //     // Проверяем количество элементов
+  //     expect($items.length).to.equal(4);
+  //
+  //     // Проверяем font-size для каждого элемента, нижнее подчеркивание - параметр не используется
+  //     $items.each((_, element: HTMLLIElement) => {
+  //       const computedStyle = window.getComputedStyle(element);
+  //       expect(computedStyle.fontSize).to.equal('18px');
+  //     });
+  //   });
+  // });
+  //
+  // it('проверка наличия margin-top у секции features', () => {
+  //   cy.get('section.listing-features').should('have.css', 'margin-bottom', '20px');
+  // });
+  //
+  // it('дополнительная проверка стилей h2 и li', () => {
+  //   cy.get('section.listing-features').should('exist');
+  //   cy.get('section.listing-features h2')
+  //       .should('be.visible')
+  //       .and('not.be.empty')
+  //       .and('have.prop', 'tagName', 'H2')
+  //       .then(($el) => {
+  //         expect($el).to.have.css('font-size', '32px');
+  //         expect($el).to.have.css('font-weight', '700');
+  //         expect($el).to.have.css('color', 'rgb(139, 137, 230)');
+  //         expect($el).to.have.css('margin-bottom', '15px');
+  //       });
+  //
+  //   cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
+  //   cy.get('section.listing-features h2').should('have.css', 'font-weight', '700');
+  //   cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
+  //   cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
+  //
+  //   cy.get('section.listing-features li')
+  //       .should('have.length.gte', 1)
+  //       .each(($li) => {
+  //         cy.wrap($li)
+  //             .should('be.visible')
+  //             .and('have.prop', 'tagName', 'LI')
+  //             .and('have.css', 'font-size', '18px')
+  //             .and('have.css', 'color', 'rgb(0, 0, 0)');
+  //       });
+  // });
+  //
+  // it('проверка цвета текста h2 и p (cy.get, each, each + cy.wrap)', () => {
+  //   cy.get('section.listing-features h2').should('be.visible').and('have.css', 'color', 'rgb(139, 137, 230)');
+  //
+  //   // each (перебирает все li, проверяет через expect)
+  //   cy.get('section.listing-features li')
+  //       .should('be.visible')
+  //       .each(($li) => {
+  //         expect($li).to.have.css('color', 'rgb(0, 0, 0)');
+  //       });
+  //
+  //   // each + wrap (перебирает все li, wrap дает проверять через should)
+  //   cy.get('section.listing-features li')
+  //       .should('be.visible')
+  //       .each(($li) => {
+  //         cy.wrap($li)
+  //             .should('have.css', 'color', 'rgb(0, 0, 0)');
+  //       });
+  // });
+  //
+  // it('проверка порядка элементов h2 > ul > li', () => {
+  //   // 1 вариант, next и find
+  //   cy.get('section.listing-features').within(() => {
+  //     cy.get('h2')
+  //         .should('exist')
+  //         .next('ul')
+  //         .should('exist')
+  //         .find('li:first') // first, так как избыточно проверять все li
+  //         .should('exist');
+  //   });
+  //
+  //   // 2 варинт, полная проверка порядка h2 → ul → li
+  //   cy.get('section.listing-features').within(() => {
+  //     cy.get('h2').should('exist');
+  //     cy.get('h2 + ul').should('exist');
+  //     cy.get('h2 + ul > li').should('have.length.gt', 0);
+  //   });
+  // });
+  //
+  // it('проверка текста внутри h2 и каждого li', () => {
+  //   cy.get('section.listing-features').should('exist');
+  //
+  //   cy.get('section.listing-features h2').should('have.text', 'Об этом жилом комплексе');
+  //
+  //   // через li:nth-child()
+  //   cy.get('section.listing-features li:nth-child(1)').should('contain.text', 'Метро:');
+  //   cy.get('section.listing-features li:nth-child(2)').should('contain.text', 'Количество человек:');
+  //   cy.get('section.listing-features li:nth-child(3)').should('contain.text', 'Вайфай:');
+  //   cy.get('section.listing-features li:nth-child(4)').should('contain.text', 'Санузел:');
+  //
+  //   // через eq
+  //   cy.get('section.listing-features li').eq(0).should('contain.text', 'Метро:');
+  //   cy.get('section.listing-features li').eq(1).should('contain.text', 'Количество человек:');
+  //   cy.get('section.listing-features li').eq(2).should('contain.text', 'Вайфай:');
+  //   cy.get('section.listing-features li').eq(3).should('contain.text', 'Санузел:');
+  //
+  //   // через then и индексацию
+  //   cy.get('section.listing-features li').then(($items) => {
+  //     expect($items[0]).to.contain.text('Метро:');
+  //     expect($items[1]).to.contain.text('Количество человек:');
+  //     expect($items[2]).to.contain.text('Вайфай:');
+  //     expect($items[3]).to.contain.text('Санузел:');
+  //   });
+  // });
 
   // it('кнопка "Подтвердить" существует в DOM', () => {
   //   cy.get('.submit-btn').should('exist');
