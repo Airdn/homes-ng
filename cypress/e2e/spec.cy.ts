@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-real-events/support';
 import { hoverButton, pressedButton } from "./helpers";
+import { formFields } from "./helpers";
 
 // describe('Home Page', () => {
 //
@@ -415,47 +416,61 @@ describe('Details Page', () => {
     cy.get('section.listing-apply input').should('be.visible');
     cy.get('section.listing-apply label').should('be.visible');
     cy.get('section.listing-apply input').should('be.visible');
-    cy.get('section.listing-apply button').should('be.visible');
+    cy.get('section.listing-apply button.submit-btn').should('be.visible');
+    cy.get('input, button').should('be.visible');
   });
 
-  it('Проверка отображения формы заявки', () => {
-    // Проверка основной структуры
+  it('Проверка отображения формы', () => {
     cy.get('section.listing-apply').should('exist');
     cy.get('section.listing-apply h2.section-heading')
         .should('be.visible')
         .and('have.text', 'Подайте заявку сейчас, чтобы жить здесь');
 
-    // Проверка формы и контейнера
     cy.get('section.listing-apply .listing-apply-form-container').should('exist');
     cy.get('section.listing-apply form')
         .should('be.visible')
         .and('have.attr', 'aria-label', 'Форма подачи заявки');
   });
 
+  it('Проверка полей формы вручную', () => {
+    // Проверка формы
+    cy.get('section.listing-apply form').should('be.visible');
+
+    // Проверка первого поля (Имя)
+    cy.get('label[for="first-name"]')
+        .should('be.visible')
+        .and('have.text', 'Имя');
+    cy.get('#first-name')
+        .should('be.visible')
+        .and('have.attr', 'type', 'text')
+        .and('have.attr', 'aria-required', 'true')
+        .and('have.attr', 'required');
+
+    // Проверка второго поля (Фамилия)
+    cy.get('label[for="last-name"]')
+        .should('be.visible')
+        .and('have.text', 'Фамилия');
+    cy.get('#last-name')
+        .should('be.visible')
+        .and('have.attr', 'type', 'text');
+
+    // Проверка третьего поля (Почта)
+    cy.get('label[for="email"]')
+        .should('be.visible')
+        .and('have.text', 'Почта');
+    cy.get('#email')
+        .should('be.visible')
+        .and('have.attr', 'type', 'email');
+
+    // Проверка кнопки
+    cy.get('button.submit-btn')
+        .should('be.visible')
+        .and('have.text', 'Подтвердить');
+  });
+
   it('Проверка полей формы', () => {
     // Проверка лейблов и соответствующих инпутов
-    const fields = [
-      {
-        label: 'Имя',
-        id: 'first-name',
-        type: 'text',
-        required: true
-      },
-      {
-        label: 'Фамилия',
-        id: 'last-name',
-        type: 'text',
-        required: false
-      },
-      {
-        label: 'Почта',
-        id: 'email',
-        type: 'email',
-        required: false
-      }
-    ];
-
-    fields.forEach((field) => {
+    formFields.forEach((field) => {
       // Проверка лейбла
       cy.get(`label[for="${field.id}"]`)
           .should('be.visible')
@@ -480,16 +495,8 @@ describe('Details Page', () => {
         .and('have.attr', 'type', 'submit');
   });
 
-  it('Валидация формы', () => {
-    // Проверка обязательного поля
-    cy.get('#first-name').clear().blur();
-    cy.get('#first-name').should('have.class', 'ng-invalid');
-
-    // Проверка валидации email
-    cy.get('#email').type('invalid-email').blur();
-    cy.get('#email').should('have.class', 'ng-invalid');
-    cy.get('#email').clear().type('valid@email.com').blur();
-    cy.get('#email').should('have.class', 'ng-valid');
+  it('ввв', () => {
+    // cy.get('#first-name').clear().blur();
   });
 
   // it('проверка количества list item', () => {
@@ -641,6 +648,90 @@ describe('Details Page', () => {
   // });
 });
 
+describe('Проверка валидности формы', () => {
+
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('section.listing').should('exist').first().click();
+  });
+
+  it('Валидность самой формы и кнопки', () => {
+    cy.get('section.listing-apply form').should('be.visible'); // вот эту строку в каждый тест добавить
+    // Проверка, что форма невалидна
+    cy.get('form').should('have.class', 'ng-invalid');
+    // Проверка, что кнопка заблокирована
+    cy.get('button.submit-btn').should('be.disabled');
+  });
+
+  it('Валидация формы', () => {
+    // Проверка обязательного поля
+    cy.get('#first-name').clear().blur();
+    cy.get('#first-name').should('have.class', 'ng-invalid');
+
+    // Проверка необязательного поля
+    cy.get('#last-name').clear().blur();
+    cy.get('#last-name').should('have.class', 'ng-valid');
+
+    // Проверка валидации email
+    cy.get('#email').type('testEmail').blur();
+    cy.get('#email').should('have.class', 'ng-invalid');
+    cy.get('#email').clear().type('valid@email.com').blur();
+    cy.get('#email').should('have.class', 'ng-valid');
+
+
+
+
+    // Пустое поле
+    cy.get('#email').clear().should('have.class', 'ng-invalid');
+
+    // Невалидный email
+    cy.get('#email').type('invalid').should('have.class', 'ng-invalid');
+
+    // Валидный email
+    cy.get('#email').type('test@test.com').should('have.class', 'ng-valid');
+
+
+
+
+
+    // Проверка видимости
+    cy.get('form').should('be.visible');
+    formFields.forEach((field) => {
+      cy.get(`#${field.id}`).should('be.visible');
+    });
+
+    // Проверка валидации
+    formFields.filter(f => f.required).forEach((field) => {
+      cy.get(`#${field.id}`).clear().blur()
+          .should('have.class', 'ng-invalid');
+    });
+
+    // Проверка email
+    cy.get('#email')
+        .type('invalid-email')
+        .should('have.class', 'ng-invalid')
+        .clear()
+        .type('valid@email.com')
+        .should('have.class', 'ng-valid');
+  });
+
+  it('валидность тоже', () => {
+    // Проверка обязательного поля
+    cy.get('#first-name').clear().blur();
+    cy.get('#first-name').should('have.class', 'ng-invalid');
+
+    // Проверка email
+    cy.get('#email').clear().type('invalid').blur();
+    cy.get('#email').should('have.class', 'ng-invalid');
+    cy.get('#email').clear().type('test@test.com').blur();
+    cy.get('#email').should('have.class', 'ng-valid');
+
+    // Проверка блокировки отправки
+    cy.get('button.submit-btn').should('be.disabled');
+  });
+
+});
+
 // async
 // await
 // отдельно тест exist отдельно visible
@@ -658,3 +749,5 @@ describe('Details Page', () => {
 // });
 
 // тест клик по логотипу из карточки перекинет на главную
+
+// тест на проверку ввода текста в инпуты формы
