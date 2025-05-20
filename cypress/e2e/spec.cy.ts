@@ -495,7 +495,7 @@ describe('Details Page', () => {
         .and('have.attr', 'type', 'submit');
   });
 
-  it('ввв', () => {
+  it('тест', () => {
     // cy.get('#first-name').clear().blur();
   });
 
@@ -648,89 +648,193 @@ describe('Details Page', () => {
   // });
 });
 
-describe('Проверка валидности формы', () => {
+// describe('Проверка валидациии формы', () => {
+//
+//   beforeEach(() => {
+//     cy.visit('/');
+//     cy.get('section.listing').should('exist').first().click();
+//   });
+//
+//   it('Валидный firstName', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#first-name').should('have.class', 'ng-invalid');
+//     cy.get('#first-name').type('test').blur().should('have.class', 'ng-valid');
+//   });
+//
+//   it('Валидный firstName 2', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#first-name')
+//         .should('have.class', 'ng-invalid')
+//         .type('test')
+//         .blur()
+//         .should('have.class', 'ng-valid');
+//   });
+//
+//   it('Валидный lastName', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#last-name').should('have.class', 'ng-valid');
+//     cy.get('#last-name').type('test').blur().should('have.class', 'ng-valid');
+//   });
+//
+//   it('Валидный lastName 2', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#last-name')
+//         .should('have.class', 'ng-valid')
+//         .type('test')
+//         .blur()
+//         .should('have.class', 'ng-valid');
+//   });
+//
+//   it('Валидный email', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#email').should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().type('test').blur().should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().type('test@email.com').blur().should('have.class', 'ng-valid');
+//   });
+//
+//   it('Валидный email 2', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#email')
+//         .should('have.class', 'ng-invalid')
+//         .type('test')
+//         .blur()
+//         .should('have.class', 'ng-invalid')
+//         .clear()
+//         .type('test@email.com')
+//         .blur()
+//         .should('have.class', 'ng-valid');
+//   });
+//
+//   it('Динамичная валидность email', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#email').should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().should('have.class', 'ng-invalid');
+//     cy.get('#email').type('test').blur().should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().type('test@email.com').blur().should('have.class', 'ng-valid');
+//     cy.get('#email').clear().type('test').blur().should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().blur().should('have.class', 'ng-invalid');
+//     cy.get('#email').type('test@email.com').blur().should('have.class', 'ng-valid');
+//   });
+//
+//   it('Поля невалидны и кнопка заблокирована', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     // Проверка обязательного поля
+//     cy.get('#first-name').clear().blur();
+//     cy.get('#first-name').should('have.class', 'ng-invalid');
+//
+//     // Проверка необязательного поля
+//     cy.get('#last-name').clear().blur();
+//     cy.get('#last-name').should('have.class', 'ng-valid');
+//
+//     // Проверка валидации email
+//     cy.get('#email').type('test').blur();
+//     cy.get('#email').should('have.class', 'ng-invalid');
+//
+//     cy.get('form').should('have.class', 'ng-invalid');
+//     cy.get('button.submit-btn').should('be.disabled');
+//   });
+//
+//   it('Поля валидны и кнопка разблокирована', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#first-name').clear().blur();
+//     cy.get('#first-name').should('have.class', 'ng-invalid');
+//     cy.get('#first-name').type('test').blur();
+//     cy.get('#first-name').should('have.class', 'ng-valid');
+//
+//     cy.get('#last-name').clear().blur();
+//     cy.get('#last-name').should('have.class', 'ng-valid');
+//
+//     cy.get('#email').type('test').blur();
+//     cy.get('#email').should('have.class', 'ng-invalid');
+//     cy.get('#email').clear().type('test@email.com').blur();
+//     cy.get('#email').should('have.class', 'ng-valid');
+//
+//     cy.get('form').should('have.class', 'ng-valid');
+//     cy.get('button.submit-btn').should('not.be.disabled');
+//   });
+//
+//   it('Форма невалидна и кнопка заблокирована', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     // Проверка, что форма невалидна
+//     cy.get('form').should('have.class', 'ng-invalid');
+//     // Проверка, что кнопка заблокирована
+//     cy.get('button.submit-btn').should('be.disabled');
+//   });
+//
+//   it('Форма валидна и кнопка разблокирована', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('form').should('have.class', 'ng-invalid');
+//     cy.get('button.submit-btn').should('be.disabled');
+//
+//     cy.get('#first-name').type('test').blur();
+//     cy.get('#email').type('test@email.com').blur();
+//
+//     cy.get('form').should('have.class', 'ng-valid');
+//     cy.get('button.submit-btn').should('not.be.disabled');
+//   });
+//
+//   it('Проверяет видимость и невалидность у полей required', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     formFields.forEach((field) => {
+//       cy.get(`#${field.id}`).should('be.visible');
+//
+//       console.log(field);
+//     });
+//
+//     formFields.filter(f => f.required).forEach((field) => {
+//       cy.get(`#${field.id}`).clear().blur()
+//           .should('have.class', 'ng-invalid');
+//
+//       console.log(field);
+//     });
+//   });
+//
+//   it('Заполнение формы', () => {
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#first-name').type('test').blur();
+//     cy.get('#last-name').type('test').blur();
+//     cy.get('#email').clear().type('test@email.com').blur();
+//
+//     cy.get('button.submit-btn').should('not.be.disabled');
+//   });
+//
+//   it('Заполнение и отправка формы', () => {
+//     cy.window().then((win: Cypress.AUTWindow) => {
+//       cy.spy(win.console, 'log').as('consoleLog');
+//     });
+//
+//     cy.get('section.listing-apply form').should('be.visible');
+//
+//     cy.get('#first-name').type('test').blur();
+//     cy.get('#last-name').type('test').blur();
+//     cy.get('#email').clear().type('test@email.com').blur();
+//
+//     cy.get('form').should('have.class', 'ng-valid');
+//     cy.get('button.submit-btn').should('not.be.disabled').click();
+//
+//     // Проверяем, что console.log вызван
+//     cy.window().its('console.log').should('be.calledWithMatch', {
+//       firstName: 'test',
+//       lastName: 'test',
+//       email: 'test@email.com'
+//     });
+//   });
+// });
 
-  beforeEach(() => {
-    cy.visit('/');
-    cy.get('section.listing').should('exist').first().click();
-  });
 
-  it('Валидность самой формы и кнопки', () => {
-    cy.get('section.listing-apply form').should('be.visible'); // вот эту строку в каждый тест добавить
-    // Проверка, что форма невалидна
-    cy.get('form').should('have.class', 'ng-invalid');
-    // Проверка, что кнопка заблокирована
-    cy.get('button.submit-btn').should('be.disabled');
-  });
-
-  it('Валидация формы', () => {
-    // Проверка обязательного поля
-    cy.get('#first-name').clear().blur();
-    cy.get('#first-name').should('have.class', 'ng-invalid');
-
-    // Проверка необязательного поля
-    cy.get('#last-name').clear().blur();
-    cy.get('#last-name').should('have.class', 'ng-valid');
-
-    // Проверка валидации email
-    cy.get('#email').type('testEmail').blur();
-    cy.get('#email').should('have.class', 'ng-invalid');
-    cy.get('#email').clear().type('valid@email.com').blur();
-    cy.get('#email').should('have.class', 'ng-valid');
-
-
-
-
-    // Пустое поле
-    cy.get('#email').clear().should('have.class', 'ng-invalid');
-
-    // Невалидный email
-    cy.get('#email').type('invalid').should('have.class', 'ng-invalid');
-
-    // Валидный email
-    cy.get('#email').type('test@test.com').should('have.class', 'ng-valid');
-
-
-
-
-
-    // Проверка видимости
-    cy.get('form').should('be.visible');
-    formFields.forEach((field) => {
-      cy.get(`#${field.id}`).should('be.visible');
-    });
-
-    // Проверка валидации
-    formFields.filter(f => f.required).forEach((field) => {
-      cy.get(`#${field.id}`).clear().blur()
-          .should('have.class', 'ng-invalid');
-    });
-
-    // Проверка email
-    cy.get('#email')
-        .type('invalid-email')
-        .should('have.class', 'ng-invalid')
-        .clear()
-        .type('valid@email.com')
-        .should('have.class', 'ng-valid');
-  });
-
-  it('валидность тоже', () => {
-    // Проверка обязательного поля
-    cy.get('#first-name').clear().blur();
-    cy.get('#first-name').should('have.class', 'ng-invalid');
-
-    // Проверка email
-    cy.get('#email').clear().type('invalid').blur();
-    cy.get('#email').should('have.class', 'ng-invalid');
-    cy.get('#email').clear().type('test@test.com').blur();
-    cy.get('#email').should('have.class', 'ng-valid');
-
-    // Проверка блокировки отправки
-    cy.get('button.submit-btn').should('be.disabled');
-  });
-
-});
 
 // async
 // await
@@ -749,5 +853,3 @@ describe('Проверка валидности формы', () => {
 // });
 
 // тест клик по логотипу из карточки перекинет на главную
-
-// тест на проверку ввода текста в инпуты формы

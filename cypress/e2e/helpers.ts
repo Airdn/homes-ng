@@ -24,7 +24,7 @@ export const formFields = [
         label: 'Почта',
         id: 'email',
         type: 'email',
-        required: false
+        required: true
     }
 ];
 
