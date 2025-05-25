@@ -262,7 +262,7 @@ describe('Details Page', () => {
   //   cy.get('.listing-features ul').should('have.attr', 'role', 'list');
   //   cy.get('.listing-features li').first().should('have.attr', 'role', 'listitem');
   // });
-
+  //
   // it('проверка отображения features', () => {
   //   cy.get('section.listing-features').should('exist');
   //   cy.get('section.listing-features h2').should('be.visible');
@@ -495,9 +495,9 @@ describe('Details Page', () => {
         .and('have.attr', 'type', 'submit');
   });
 
-  it('тест', () => {
-    // cy.get('#first-name').clear().blur();
-  });
+  // it('тест', () => {
+  //   // cy.get('#first-name').clear().blur();
+  // });
 
   // it('проверка количества list item', () => {
   //   // Проверка, что список не меньше 0 и не больше 4 элементов
