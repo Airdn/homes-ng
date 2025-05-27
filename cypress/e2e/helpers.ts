@@ -28,6 +28,19 @@ export const formFields = [
     }
 ];
 
+export const getBorderWidth = (element: JQuery<HTMLElement>): number => {
+    return parseFloat(window.getComputedStyle(element[0]).borderWidth);
+};
+
+export const assertBorderWidthInRange = (
+    element: JQuery<HTMLElement>,
+    min: number = 0.5,
+    max: number = 1.1
+): void => {
+    const borderWidth = getBorderWidth(element);
+    expect(borderWidth).to.be.within(min, max);
+};
+
 // export const buttonHover1 = () => {
 //     cy.get('.submit-btn').realHover();
 // };

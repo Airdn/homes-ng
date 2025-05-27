@@ -1,7 +1,11 @@
 /// <reference types="cypress" />
 import 'cypress-real-events/support';
-import { hoverButton, pressedButton } from "./helpers";
-import { formFields } from "./helpers";
+import {
+  formFields,
+  assertBorderWidthInRange,
+  hoverButton,
+  pressedButton
+} from "./helpers";
 
 // describe('Home Page', () => {
 //
@@ -405,22 +409,15 @@ describe('Details Page', () => {
   //   });
   // });
 
-  it('проверка отображения apply', () => {
+  it('Проверка отображения apply', () => {
     cy.get('section.listing-apply').should('exist');
     cy.get('section.listing-apply h2').should('be.visible');
     cy.get('section.listing-apply div').should('exist');
     cy.get('section.listing-apply form').should('be.visible');
-    cy.get('section.listing-apply label').should('be.visible');
-    cy.get('section.listing-apply input').should('be.visible');
-    cy.get('section.listing-apply label').should('be.visible');
-    cy.get('section.listing-apply input').should('be.visible');
-    cy.get('section.listing-apply label').should('be.visible');
-    cy.get('section.listing-apply input').should('be.visible');
     cy.get('section.listing-apply button.submit-btn').should('be.visible');
-    cy.get('input, button').should('be.visible');
   });
 
-  it('Проверка отображения формы', () => {
+  it('Проверка текста перед формой', () => {
     cy.get('section.listing-apply').should('exist');
     cy.get('section.listing-apply h2.section-heading')
         .should('be.visible')
@@ -433,7 +430,6 @@ describe('Details Page', () => {
   });
 
   it('Проверка полей формы вручную', () => {
-    // Проверка формы
     cy.get('section.listing-apply form').should('be.visible');
 
     // Проверка первого поля (Имя)
@@ -460,32 +456,9 @@ describe('Details Page', () => {
         .and('have.text', 'Почта');
     cy.get('#email')
         .should('be.visible')
-        .and('have.attr', 'type', 'email');
-
-    // Проверка кнопки
-    cy.get('button.submit-btn')
-        .should('be.visible')
-        .and('have.text', 'Подтвердить');
-  });
-
-  it('Проверка полей формы', () => {
-    // Проверка лейблов и соответствующих инпутов
-    formFields.forEach((field) => {
-      // Проверка лейбла
-      cy.get(`label[for="${field.id}"]`)
-          .should('be.visible')
-          .and('have.text', field.label);
-
-      // Проверка инпута
-      cy.get(`#${field.id}`)
-          .should('be.visible')
-          .and('have.attr', 'type', field.type);
-
-      // Проверка обязательности
-      if (field.required) {
-        cy.get(`#${field.id}`).should('have.attr', 'aria-required', 'true');
-      }
-    });
+        .and('have.attr', 'type', 'email')
+        .and('have.attr', 'aria-required', 'true')
+        .and('have.attr', 'required');
 
     // Проверка кнопки
     cy.get('button.submit-btn')
@@ -495,35 +468,121 @@ describe('Details Page', () => {
         .and('have.attr', 'type', 'submit');
   });
 
-  // it('тест', () => {
-  //   // cy.get('#first-name').clear().blur();
-  // });
+  it('Проверка полей формы через функцию', () => {
+    cy.get('section.listing-apply form').should('be.visible');
 
-  // it('проверка количества list item', () => {
-  //   // Проверка, что список не меньше 0 и не больше 4 элементов
-  //   cy.get('section.listing-features li').should('have.length.gt', 0).and('have.length.lt', 5);
-  //
-  //   // Другой вариант, через expect
-  //   cy.get('section.listing-features li').should(($li) => {
-  //     expect($li.length).to.be.gt(0).and.lt(5);
-  //   });
-  //
-  //   // Другой вариант, через gte и lte
-  //   cy.get('section.listing-features li').its('length').should('be.gte', 1).and('be.lte', 4);
-  // });
-  //
-  // it('проверка цвета и размера шрифта h2 и li', () => {
-  //   cy.get('section.listing-features h2').should('have.css', 'font-size', '32px');
-  //   cy.get('section.listing-features h2').should('have.css', 'color', 'rgb(139, 137, 230)');
-  //   cy.get('section.listing-features h2').should('have.css', 'margin-bottom', '15px');
-  //   cy.get('section.listing-features li').should('have.css', 'font-size', '18px');
-  //
-  //   // Проверка размера во всех li через each
-  //   cy.get('section.listing-features li').each(($li) => {
-  //     cy.wrap($li).should('have.css', 'font-size', '18px');
-  //   });
-  // });
-  //
+    // Проверка лейблов и соответствующих инпутов
+    formFields.forEach((field) => {
+      // Проверка лейблов
+      cy.get(`label[for="${field.id}"]`)
+          .should('be.visible')
+          .and('have.text', field.label);
+
+      // Проверка инпутов
+      cy.get(`#${field.id}`)
+          .should('be.visible')
+          .and('have.attr', 'type', field.type);
+
+      // Проверка обязательности
+      if (field.required) {
+        cy.get(`#${field.id}`).should('have.attr', 'aria-required', 'true');
+      }
+    });
+  });
+
+  it('проверка стилей h2', () => {
+    cy.get('section.listing-apply h2')
+        .should('be.visible')
+        .and('have.css', 'font-size', '24px')
+        .and('have.css', 'color', 'rgb(0, 0, 0)')
+        .and('have.css', 'margin-bottom', '15px');
+  });
+
+  it('проверка стилей лейблов', () => {
+    cy.get('section.listing-apply form').should('be.visible');
+
+    formFields.forEach(({ id, label }) => {
+      if (label) {
+        cy.get(`label[for="${id}"]`)
+          .should('be.visible')
+          .and('have.text', label)
+          .and('have.css', 'font-size', '16px')
+          .and('have.css', 'color', 'rgb(139, 137, 230)')
+          .and('have.css', 'font-weight', '700')
+          .and('have.css', 'text-transform', 'uppercase');
+      }
+    });
+  });
+
+  it('проверка стилей инпутов', () => {
+    cy.get('section.listing-apply form').should('be.visible');
+
+    formFields.forEach((field) => {
+      if (field.id) {
+        cy.get(`#${field.id}`)
+            .should('be.visible')
+            .and('have.css', 'background-color', 'rgb(255, 255, 255)')
+            .and('have.css', 'padding', '10px')
+            .and('have.css', 'margin-bottom', '15px')
+            .and('have.css', 'border-style', 'solid')
+            .and('have.css', 'border-color', 'rgb(96, 93, 200)')
+            .and('have.css', 'border-radius', '5px')
+            .and('not.have.css', 'border-width', '0px')
+            .and('have.css', 'text-align', 'start');
+      }
+    });
+
+    // .and('have.css', 'height', '15px')
+    // .and('have.css', 'width', '400px')
+    // .and('have.css', 'font-size', '22px')
+    // .and('have.css', 'color', 'rgb(0, 0, 0)')
+    // .and('have.css', 'font-weight', '700')
+    // .and('have.css', 'text-align', 'start')
+  });
+
+  it('проверка border-width всех инпутов', () => {
+    cy.get('section.listing-apply form').should('be.visible');
+
+    formFields.forEach((field) => {
+      if (field.id) {
+        cy.get(`#${field.id}`)
+            .should('be.visible')
+            .and(($el) => {
+              const borderWidth = parseFloat(window.getComputedStyle($el[0]).borderWidth);
+              expect(borderWidth).to.be.greaterThan(0.5);
+              expect(borderWidth).to.be.lessThan(1.1);
+            });
+      }
+    });
+  });
+
+  it('проверка border-width всех инпутов: expect', () => {
+    cy.get('section.listing-apply form').should('be.visible');
+
+    formFields.forEach((field) => {
+      cy.get(`#${field.id}`)
+          .should('have.css', 'border-width')
+          .then((borderWidth: string) => {
+            expect(parseFloat(borderWidth)).to.be.within(0.5, 1.1);
+          });
+    });
+  });
+
+  it('проверка border-width всех инпутов: const', () => {
+    cy.get('section.listing-apply form').should('be.visible');
+
+    formFields.forEach((field) => {
+      cy.get(`#${field.id}`)
+          .should(($el) => {
+            assertBorderWidthInRange($el);
+          });
+    });
+  });
+
+  // высота, бордер, маржин и инпутов
+  // размер шрифта введенного текста
+  // отдельный блок для кнопки Подтвердить
+
   // it('альтренативная проверка размера и шрифта h2 и li через then', () => {
   //   cy.get('section.listing-features li').then(($items: JQuery<HTMLLIElement>) => {
   //     // Проверяем количество элементов
@@ -536,7 +595,7 @@ describe('Details Page', () => {
   //     });
   //   });
   // });
-  //
+
   // it('проверка наличия margin-top у секции features', () => {
   //   cy.get('section.listing-features').should('have.css', 'margin-bottom', '20px');
   // });
