@@ -538,6 +538,8 @@ describe('Details Page', () => {
     // .and('have.css', 'color', 'rgb(0, 0, 0)')
     // .and('have.css', 'font-weight', '700')
     // .and('have.css', 'text-align', 'start')
+
+    // дописать
   });
 
   it('проверка border-width всех инпутов', () => {
