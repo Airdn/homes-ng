@@ -539,7 +539,7 @@ describe('Details Page', () => {
     // .and('have.css', 'font-weight', '700')
     // .and('have.css', 'text-align', 'start')
 
-    // дописать
+    // т
   });
 
   it('проверка border-width всех инпутов', () => {
