@@ -41,6 +41,13 @@ export const assertBorderWidthInRange = (
     expect(borderWidth).to.be.within(min, max);
 };
 
+export const listingApplySectionTitle = [
+    ['font-size', '24px'],
+    ['font-weight', '700'],
+    ['color', 'rgb(0, 0, 0)'],
+    ['margin-bottom', '15px']
+];
+
 // export const buttonHover1 = () => {
 //     cy.get('.submit-btn').realHover();
 // };
