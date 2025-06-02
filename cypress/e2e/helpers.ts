@@ -1,10 +1,25 @@
 // todo: вынести в utils/helpers.ts
-export const hoverButton = (selector = '.search-btn'): void => {
-    cy.get(selector).realHover();
+export const buttonHover = (selector: string) => {
+    cy.get(selector)
+        .invoke('addClass', 'hover')
+        .should('have.css', 'background-color', 'rgb(78, 75, 155)');
 };
 
-export const pressedButton = (selector = '.search-btn'): void => {
-    cy.get(selector).realMouseDown();
+export const buttonPressed = (selector: string) => {
+    cy.get(selector)
+        .invoke('addClass', 'active')
+        .should('have.css', 'background-color', 'rgb(62, 58, 125)');
+};
+
+export const BUTTON_STATES = {
+    SEARCH: {
+        hover: 'rgb(78, 75, 155)',
+        pressed: 'rgb(62, 58, 125)'
+    },
+    SUBMIT: {
+        hover: 'rgb(78, 75, 155)',
+        pressed: 'rgb(62, 58, 125)'
+    }
 };
 
 export const formFields = [

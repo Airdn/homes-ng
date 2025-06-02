@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 import 'cypress-real-events/support';
 import {
+  BUTTON_STATES,
+  buttonHover,
+  buttonPressed,
   formFields,
   assertBorderWidthInRange,
-  hoverButton,
-  pressedButton,
-  listingApplySectionTitle
+  listingApplySectionTitle,
 } from "./helpers";
 
 describe('Home Page', () => {
@@ -112,22 +113,12 @@ describe('Проверка отображения кнопки Поиск', () =
     cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
   });
 
-  // it('состояние Hover', () => {
-  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
-  //   cy.get('.search-btn').realHover();
-  //   cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
-  //   cy.get('.search-btn').invoke('addClass', 'hover');
-  //   cy.get('.search-btn').should('have.class', 'hover');
-  // });
-
   it('состояние Hover', () => {
-    hoverButton();
-    cy.get('.search-btn').should('have.css', 'background-color', 'rgb(78, 75, 155)');
+    buttonHover('button.search-btn');
   });
 
   it('состояние Pressed', () => {
-    pressedButton();
-    cy.get('.search-btn').should('have.css', 'background-color', 'rgb(62, 58, 125)');
+    buttonPressed('button.search-btn');
   });
 });
 
@@ -848,29 +839,113 @@ describe('Проверка валидациии формы', () => {
   });
 });
 
-// describe ('Проверка кнопки "Подтвердить"', () => {
-//
-//   beforeEach(() => {
-//     cy.visit('/');
-//     cy.get('section.listing').should('exist').first().click();
-//   });
-//
-//   // тесты
-//
-//   // it('кнопка "Подтвердить" существует в DOM', () => {
-//   //   cy.get('.submit-btn').should('exist');
-//   // });
-//   //
-//   // it('отображается кнопка "Подтвердить"', () => {
-//   //   cy.get('.submit-btn').should('be.visible');
-//   // });
-//   //
-//   // it('проверка текста в кнопке "Подтвердить"', () => {
-//   //   cy.get('.submit-btn').should('be.visible');
-//   //   cy.get('.submit-btn').contains('Подтвердить');
-//   // });
-//
-// });
+describe ('Проверка отображения кнопки Подтвердить', () => {
+
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('section.listing').should('exist').first().click();
+    cy.get('section.listing-apply form').should('be.visible');
+  });
+
+  it('кнопка существует в DOM', () => {
+    cy.get('button.submit-btn').should('exist');
+  });
+
+  it('кнопка отображается', () => {
+    cy.get('button.submit-btn').should('be.visible');
+  });
+
+  it('проверка текста в кнопке', () => {
+    cy.get('button.submit-btn')
+        .should('be.visible')
+        .contains('Подтвердить');
+  });
+
+  it('кнопка недоступна пока не заполнена форма', () => {
+    cy.get('button.submit-btn').contains('Подтвердить').and('be.disabled');
+  });
+
+  it('кнопка доступна после заполнения формы', () => {
+    cy.get('#first-name').type('test').blur();
+    cy.get('#last-name').type('test').blur();
+    cy.get('#email').type('test@email.com').blur();
+    cy.get('button.submit-btn').contains('Подтвердить').and('not.be.disabled');
+  });
+
+  it('проверка стилей кнопки', () => {
+    const submitButtonStyles = {
+      'padding': '10px',
+      'border-radius': '8px',
+      'background-color': 'rgb(96, 93, 200)',
+      'border-color': 'rgb(96, 93, 200)',
+      'color': 'rgb(255, 255, 255)',
+      'font-size': '14px',
+      'font-weight': '400',
+      'text-align': 'center',
+      'border-style': 'solid'
+    };
+
+    cy.get('button.submit-btn').then(($btn) => {
+      Object.entries(submitButtonStyles).forEach(([property, value]) => {
+        expect($btn).to.have.css(property, value)
+      });
+
+      const borderWidth = parseFloat(window.getComputedStyle($btn[0]).borderWidth);
+      expect(borderWidth).to.be.closeTo(1, 0.5);
+    });
+
+    // через for
+    // cy.get('button.submit-btn').then(($btn) => {
+    //   for (const property in submitButtonStyles) {
+    //     expect($btn).to.have.css(property, submitButtonStyles[property]);
+    //   }
+    // });
+  });
+
+  it('проверка высоты кнопки', () => {
+    cy.get('button.submit-btn').then(($btn) => {
+      const height = parseFloat(window.getComputedStyle($btn[0]).height);
+      expect(height).to.be.closeTo(37, 1);
+    });
+  });
+
+  it('состояние Default', () => {
+    cy.get('button.submit-btn').should('have.css', 'background-color', 'rgb(96, 93, 200)');
+  });
+
+  it('состояние Hover', () => {
+    cy.get('#first-name').type('test').blur();
+    cy.get('#last-name').type('test').blur();
+    cy.get('#email').type('test@email.com').blur();
+
+    buttonHover('button.submit-btn');
+  });
+
+  it('состояние Pressed', () => {
+    cy.get('#first-name').type('test').blur();
+    cy.get('#last-name').type('test').blur();
+    cy.get('#email').type('test@email.com').blur();
+
+    buttonPressed('button.submit-btn');
+  });
+
+  it('состояние Disabled', () => {
+    cy.get('button.submit-btn[disabled]') // Ищем по атрибуту
+        .should('have.css', 'background-color', 'rgb(96, 93, 200)')
+        .and('have.css', 'opacity', '0.5');
+
+    // делаем кнопку доступной
+    cy.get('#first-name').type('test').blur();
+    cy.get('#last-name').type('test').blur();
+    cy.get('#email').type('test@email.com').blur();
+
+    // повторно проверяем disabled
+    cy.get('button.submit-btn')
+        .invoke('prop', 'disabled', true)
+        .should('have.css', 'background-color', 'rgb(96, 93, 200)')
+        .and('have.css', 'opacity', '0.5');
+  });
+});
 
 
 
@@ -893,3 +968,6 @@ describe('Проверка валидациии формы', () => {
 
 // тест клик по логотипу из карточки перекинет на главную
 // тесты на валидацию
+
+// оптимизация тестов на hover, pressed + метод type (),
+// сделать через подмену class чтобы быстрее тесты проходили
