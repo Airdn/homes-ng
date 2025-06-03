@@ -11,17 +11,6 @@ export const buttonPressed = (selector: string) => {
         .should('have.css', 'background-color', 'rgb(62, 58, 125)');
 };
 
-export const BUTTON_STATES = {
-    SEARCH: {
-        hover: 'rgb(78, 75, 155)',
-        pressed: 'rgb(62, 58, 125)'
-    },
-    SUBMIT: {
-        hover: 'rgb(78, 75, 155)',
-        pressed: 'rgb(62, 58, 125)'
-    }
-};
-
 export const formFields = [
     {
         label: 'Имя',
